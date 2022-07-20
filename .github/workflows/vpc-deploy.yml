@@ -1,34 +1,34 @@
-name: VPC deployment in AWS
+name: Terraform deploy demo
 on:
   push:
     branches:
       main
 jobs:
-    terraform-deploy:
-      runs-on: ubuntu-latest
-      permissions:
-        packages: write
-        contents: read
-        id-token: write
-      steps:
-        - name: Clone our repository
-          uses: actions/checkout@v3
-        
-        - name: AWS Authentication
-          uses: aws-actions/configure-aws-credentials@v1
-          with:
-            role-to-assume: arn:aws:iam::247548036690:role/github-actions-oidc
-            aws-region: eu-west-1
-            role-session-name: GithubVPCDeploy
+  terraform-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
+    steps:
+      - name: git clone of my repo
+        uses: actions/checkout@v3
 
-        - name: Terraform Set up
-          uses: hashicorp/setup-terraform@v1
+      - name: AWS authentication
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::247548036690:role/github-actions-oidc
+          aws-region: us-east-1
+          role-session-name: GithubRdsDatabaseDeployment
 
-        - name: Terraform initialization
-          run: terraform init
-
-        - name: Terraform planning
-          run: terraform plan
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
       
-        - name: Terraform applying
-          run: terraform  apply -auto-approve
+      - name: Init project
+        run: terraform init
+      
+      - name: Run TF plan
+        run: terraform plan
+
+      - name: Apply infra
+        run: terraform apply -auto-approve
