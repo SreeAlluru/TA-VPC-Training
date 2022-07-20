@@ -14,14 +14,12 @@ jobs:
         - name: Clone our repository
           uses: actions/checkout@v3
         
-
         - name: AWS Authentication
           uses: aws-actions/configure-aws-credentials@v1
           with:
             role-to-assume: arn:aws:iam::247548036690:role/github-actions-oidc
             aws-region: eu-west-1
             role-session-name: GithubVPCDeploy
-
 
         - name: Terraform Set up
           uses: hashicorp/setup-terraform@v1
