@@ -27,8 +27,8 @@ terraform-deploy:
       - name: Terraform initialization
         run: terraform init
 
-      -name: Terraform planning
+      - name: Terraform planning
         run: terraform plan
       
-      -name: Terraform applying
+      - name: Terraform applying
         run: terraform  apply -auto-approve
