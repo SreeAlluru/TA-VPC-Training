@@ -20,6 +20,7 @@ resource "aws_route_table" "nat_route_tbl" {
   }
 }
 
+
 resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public.id
   route_table_id = aws_route_table.internet_route_tbl.id
@@ -30,9 +31,17 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.nat_route_tbl.id
 }
 
-resource "aws_route_table_association" "data" {
-  subnet_id      = aws_subnet.data.id
+resource "aws_route_table_association" "data-a" {
+  #for_each = aws_subnet.data
+
+  subnet_id      = aws_subnet.data-a.id
   route_table_id = aws_route_table.nat_route_tbl.id
 }
 
+resource "aws_route_table_association" "data-b" {
+  #for_each = aws_subnet.data
+
+  subnet_id      = aws_subnet.data-b.id
+  route_table_id = aws_route_table.nat_route_tbl.id
+}
 
